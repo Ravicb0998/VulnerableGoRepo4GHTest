@@ -59,7 +59,7 @@ func main() {
 	router.ServeFiles("/public/*filepath", http.Dir("public/"))
 	router.GET("/", mw.LoggingMiddleware(mw.AuthCheck(indexHandler)))
 	router.GET("/index", mw.LoggingMiddleware(mw.DetectSQLMap(mw.AuthCheck(indexHandler))))
-
+	http.ListenAndServe("0.0.0.0:5001", router)
 	user.SetRouter(router)
 	sqlI.SetRouter(router)
 	xss.SetRouter(router)
